@@ -1,17 +1,35 @@
-This is a java plugin for the Minecraft server software Bukkit.
-It allows you to create your very own guns and ammo for these!
-The properties of the items can be set in the configuration files.
-Enjoy! :)
-
-***TO-DO***
-	 * ---NEW---    
-	 * 1. Hook into certain plugins: Citizens(request that npcs can held guns an use them), Chestshop(guns should be buy/sellable)
-	 * 2. Make magazines as ammo, which contains a specific amount of bullets to safe inventory space
-	 * 3. Add "Number of Bullets" option (fireing takes config amount of ammo each shot)
-	 * 4. Add Area of Effect option (such as targetenity in effects, area that is influnced) # but perhaps also add configurable
-         *    amount for each axis.
-	 * ---FIX---
-	 * 1. HUD should overlay the zoomtexture 
-	 * 2. The file data.dat has a bunch of empty lines before the actual data, perhaps add sql support for storing the data
-         A '#' behind the todo/fix means they are done.
-         A '+' behind a todo/fix means they are in progress of being added. 
+GUNSPLUS - FUTURE DEVELOPMENT
+-----------------------------
+- Upload in zip file together with ApiPlus
+- improve bullet calculations
+  - bullet drop                                                     |
+  - bullet speed                                                    |- Requires a really good algorithm
+  - use bounding boxes of entities instead of their current block   |
+- visualize bullets with dropped items (needs good spawn and despawn managing to prevent lag)
+- change ammo handling
+  - allow for multiple shots in one ammo item
+  -> perhaps make use out of item durability bar
+- new HUD elements
+  - hitmarker
+  - "bloody screen" as health indicator
+- Change tripod into turret
+  - Turret can only shoot into the direction it is placed in.
+  - Turret can be rotated 90° by sending an redstone signal
+  - new configuration file for turrets
+  - new block design
+- new special combat items pvp arenas
+  - ..  
+APIPLUS - FUTURE DEVELOPMENT
+----------------------------
+- improve effects API
+  - add custom class loader for effects; loads them from ApiPlus/effects for use in any configuration 
+- improve materials API
+  - add custom class loader for items: loads them from ApiPlus/materials/items for use in any configuration
+  - add custom class loader for blocks: loads them from ApiPlus/materials/blocks for use in any configuration
+  - add custom class loader for block designs: loads them from ApiPlus/materials/blocks/designs for use in any configuration
+  
+GRENADESPLUS - FUTURE DEVELOPMENT
+---------------------------------
+- make it more user friendly
+- Allow combination with GunsPlus for things like grenade launchers
+- Perhaps merge GrenadesPlus with GunsPlus
