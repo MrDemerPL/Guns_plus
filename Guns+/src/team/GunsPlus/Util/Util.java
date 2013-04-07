@@ -58,8 +58,10 @@ public class Util {
 			NumberProperty np = new NumberProperty(((NumberProperty) parent.getProperty(s)).getValue());
 			if(child.getProperty(s)!=null){
 				NumberProperty cp = new NumberProperty(((NumberProperty) child.getProperty(s)).getValue());
-				np.modify(cp.getValue());
+				Number n = np.modify(cp.getValue());
+				np = new NumberProperty(n);
 			}
+			
 			child.setProperty(s, new NumberProperty(np.getValue()));
 		}
 	}
@@ -69,7 +71,7 @@ public class Util {
 			StringProperty np = new StringProperty(((StringProperty) parent.getProperty(s)).getValue());
 			if(child.getProperty(s)!=null){
 				StringProperty cp = new StringProperty(((StringProperty) child.getProperty(s)).getValue());
-				np.modify(cp.getValue());
+				np = new StringProperty(np.modify(cp.getValue()));
 			}
 			child.setProperty(s, new StringProperty(np.getValue()));
 		}
@@ -81,7 +83,7 @@ public class Util {
 			CollectionProperty np = new CollectionProperty((Collection) ((CollectionProperty) parent.getProperty(s)).getValue());
 			if(child.getProperty(s)!=null){
 				CollectionProperty cp = new CollectionProperty((Collection) ((CollectionProperty) child.getProperty(s)).getValue());
-				np.modify(cp.getValue());
+				np = new CollectionProperty((Collection) np.modify(cp.getValue()));
 			}
 			child.setProperty(s, new CollectionProperty((Collection) np.getValue()));
 		}
@@ -93,7 +95,7 @@ public class Util {
 			ObjectProperty np = new ObjectProperty(((ObjectProperty) parent.getProperty(s)).getValue());
 			if(child.getProperty(s)!=null){
 				ObjectProperty cp = new ObjectProperty(((ObjectProperty) child.getProperty(s)).getValue());
-				np.modify(cp.getValue());
+				np = new ObjectProperty(np.modify(cp.getValue()));
 			}
 			child.setProperty(s, new ObjectProperty(np.getValue()));
 		}

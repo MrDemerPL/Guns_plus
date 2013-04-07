@@ -130,7 +130,7 @@ public class TripodData extends Shooter implements InventoryHolder {
 	}
 
 	@Override
-	public void reload(Gun g) {
+	public void reload(Gun g, boolean autoreload) {
 //		if(getFireCounter(g) == 0)
 //			return;
 		if(isReloadResetted()) {

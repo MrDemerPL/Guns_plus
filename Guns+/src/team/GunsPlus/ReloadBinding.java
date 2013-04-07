@@ -24,7 +24,7 @@ public class ReloadBinding implements BindingExecutionDelegate {
 		if(ev.getScreenType().equals(ScreenType.GAME_SCREEN)) {
 			SpoutPlayer sp = ev.getPlayer();
 			if(GunUtils.holdsGun(sp)) {
-				PlayerUtils.getPlayerBySpoutPlayer(sp).reload(GunUtils.getGunInHand(sp));
+				PlayerUtils.getPlayerBySpoutPlayer(sp).reload(GunUtils.getGunInHand(sp), false);
 			}
 		}
 	}

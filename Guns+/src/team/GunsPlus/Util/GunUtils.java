@@ -154,6 +154,7 @@ public class GunUtils {
 				}
 				int damage = 0;
 				int changedamage = (int) Math.ceil(((NumberProperty) ph.getProperty("CHANGEDAMAGE")).getValue().floatValue() * d);
+//				System.out.println("CD: "+changedamage+ "; BD: "+body+"; HEAD: "+head);
 				if(head){
 					damage=((NumberProperty)ph.getProperty("HEADSHOTDAMAGE")).getValue().intValue()+changedamage;
 					if(damage<0) damage = 0;
@@ -305,6 +306,10 @@ public class GunUtils {
 					ItemStack hi = invAll.get(j);
 					if(hi.getTypeId() == theStack.getTypeId() && hi.getDurability() == theStack.getDurability()) {
 						ammoStack = hi;
+						Ammo a = getAmmo(ammoStack);
+						int maxdur = ((NumberProperty)a.getProperty("AMMODURABILITY")).getValue().intValue();
+						if(maxdur>0)
+							ammoStack = Utils.changeDurability((GenericCustomItem)a, maxdur, ammoStack, (short)0, false);
 						return new SpoutItemStack(ammoStack);
 					}
 				}

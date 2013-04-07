@@ -159,7 +159,6 @@ public class GunsPlusPlayer extends LivingShooter {
 			Utils.makeUnstackable(getPlayer().getItemInHand());
 			
 			PropertyContainer pc = new PropertyContainer(g.getProperties());
-			
 			Ammo usedAmmo = GunUtils.getFirstCustomAmmo(inv, ammoTypes);
 			if(usedAmmo != null) {
 				Util.setProperties(usedAmmo, pc);
@@ -189,6 +188,7 @@ public class GunsPlusPlayer extends LivingShooter {
 					PlayerUtils.sendNotification(this.getPlayer(), "Critical!", "with a " + GunUtils.getRawGunName(g), new ItemStack(Material.DIAMOND_SWORD), 2000);
 					damage = tar.getHealth() + 20;
 				}
+//				System.out.println("DAMAGE: "+damage);
 				tar.damage(damage, getPlayer());
 			}
 
@@ -204,57 +204,38 @@ public class GunsPlusPlayer extends LivingShooter {
 			}
 
 			boolean clipempty = GunUtils.clipEmpty(inv, ammoTypes);
+			if(clipempty){
+				this.setCanShoot(g, false);
+			}
 			Bukkit.getServer().getPluginManager().callEvent(new GunFireEvent(getPlayer(), g));
-			getPlayer().updateInventory();
-
+			
 //			setFireCounter(g, getFireCounter(g) + 1);
 			recoil(pc);
-			System.out.println("CLIPEMPTY: "+clipempty);
-			//TODO: Fix autoreload turned off 
-			if(GunsPlus.autoreload && clipempty)//getFireCounter(g) >= ((NumberProperty) pc.getProperty("SHOTSBETWEENRELOAD")).getValue().intValue()
-				reload(g);
+			boolean autoreload = GunsPlus.autoreload && !getCanShoot(g);
+			if(autoreload){//getFireCounter(g) >= ((NumberProperty) pc.getProperty("SHOTSBETWEENRELOAD")).getValue().intValue()
+				GunUtils.consumeAmmo(inv, ammoTypes);
+				reload(g, true);
+			}
 			if(((NumberProperty) pc.getProperty("SHOTDELAY")).getValue().intValue() > 0)
 				delay(g);
-
-			GunUtils.consumeAmmo(inv, ammoTypes);
+			if(!autoreload)
+				GunUtils.consumeAmmo(inv, ammoTypes);
+			getPlayer().updateInventory();
 			setFireing(false);
 		}
 
 	}
-	
-	public void test(Location l, Entity col, float speed){
-		Item i = l.getWorld().dropItem(l, new ItemStack(Material.SULPHUR));
-		i.setVelocity(l.getDirection().normalize().multiply(speed).add(l.toVector()));
-		int count = (int) (l.distance(col.getLocation())/i.getVelocity().length()+10);
-		System.out.println("STARTED TASK: "+count);
-		Task t = new Task(GunsPlus.plugin, i, col){
-			public void run() {
-				CraftItem it = (CraftItem)(this.getArg(0));
-				CraftEntity ce = (CraftEntity)(this.getArg(1));
-				AxisAlignedBB aabb = it.getHandle().boundingBox;
-				AxisAlignedBB aabb2 = ce.getHandle().boundingBox;
-				System.out.println(it.getLocation().distance(ce.getLocation()));
-				if(aabb.a(aabb2)){
-					System.out.println("HIT THE TARGET!");
-					it.remove();
-					this.stopTask();
-				}
-			}
-		};
-		t.startTaskRepeating(1);
-	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public void reload(Gun g) {
+	public void reload(Gun g, boolean autoreload) {
 		if(!player.hasPermission("gunsplus.reload.all") && GunsPlus.useperms) {
 			if(!player.hasPermission("gunsplus.reload." + ((GenericCustomItem) g).getName().toLowerCase().replace(" ", "_")))
 				return;
 		}
-		if(getCurrentClipSize(g)==getMaxClipSize(g)){
-			System.out.println("Not Reload");
+		if(getCurrentClipSize(g)==getMaxClipSize(g)&&!autoreload){
 			return;
-		}else if(getCurrentClipSize(g)>0){
+		}else if(getCurrentClipSize(g)>0&&!autoreload){
 			Ammo a = GunUtils.getFirstCustomAmmo(getPlayer().getInventory(),  (ArrayList<ItemStack>) ((CollectionProperty<ItemStack>) g.getProperty("AMMO")).getValue());
 			SpoutItemStack i = GunUtils.getFirstCustomAmmoStack(getPlayer().getInventory(),  (ArrayList<ItemStack>) ((CollectionProperty<ItemStack>) g.getProperty("AMMO")).getValue());
 			int slot = getPlayer().getInventory().first(i);
@@ -265,7 +246,6 @@ public class GunsPlusPlayer extends LivingShooter {
 			getPlayer().getInventory().setItem(slot, i);
 			getPlayer().getWorld().dropItemNaturally(getPlayer().getLocation(), drop);
 		}
-		System.out.println("Reload");
 		PlayerUtils.sendNotification(getPlayer(), GunUtils.getRawGunName(g), "Reloading...", new ItemStack(Material.WATCH), 2000);
 		Bukkit.getPluginManager().callEvent(new GunReloadEvent(this.getPlayer(), g));
 		if(isReloadResetted()) {
@@ -277,6 +257,7 @@ public class GunsPlusPlayer extends LivingShooter {
 					Shooter s = (Shooter) this.getArg(0);
 					Gun g = (Gun) this.getArg(1);
 					s.resetReload();
+					s.setCanShoot(g, true);
 //					s.resetFireCounter(g);
 				}
 			};
@@ -298,7 +279,7 @@ public class GunsPlusPlayer extends LivingShooter {
 		Ammo a = GunUtils.getFirstCustomAmmo(inv, ammoTypes);
 		SpoutItemStack sis = GunUtils.getFirstCustomAmmoStack(inv, ammoTypes); 
 		if(a!=null){
-			return sis.getEnchantmentLevel(SpoutEnchantment.MAX_DURABILITY)-sis.getEnchantmentLevel(SpoutEnchantment.DURABILITY)-1;
+			return sis.getEnchantmentLevel(SpoutEnchantment.MAX_DURABILITY)-sis.getEnchantmentLevel(SpoutEnchantment.DURABILITY);
 		}
 		return 1;
 	}

@@ -109,7 +109,7 @@ public class ConfigLoader {
 					String melee = additionsConfig.getString(additionnode + ".melee-damage");
 					String reloadTime = additionsConfig.getString(additionnode + ".reload-time");
 					String shotDelay = additionsConfig.getString(additionnode + ".shot-delay");
-					String shotsBetweenReload = additionsConfig.getString(additionnode + ".shots-between-reload");
+//					String shotsBetweenReload = additionsConfig.getString(additionnode + ".shots-between-reload");
 					String recoil = additionsConfig.getString(additionnode + ".recoil");
 					String weight = additionsConfig.getString(additionnode + ".weight");
 					String knockback = additionsConfig.getString(additionnode + ".knockback");
@@ -176,8 +176,8 @@ public class ConfigLoader {
 						a.addProperty("RECOIL", new NumberProperty(recoil));
 					if(reloadTime != null)
 						a.addProperty("RELOADTIME", new NumberProperty(reloadTime));
-					if(shotsBetweenReload != null)
-						a.addProperty("SHOTSBETWEENRELOAD", new NumberProperty(shotsBetweenReload));
+//					if(shotsBetweenReload != null)
+//						a.addProperty("SHOTSBETWEENRELOAD", new NumberProperty(shotsBetweenReload));
 					if(shotDelay != null)
 						a.addProperty("SHOTDELAY", new NumberProperty(shotDelay));
 					if(knockback != null)
@@ -226,7 +226,7 @@ public class ConfigLoader {
 					String melee = ammoConfig.getString(name + ".melee-damage");
 					String reloadTime = ammoConfig.getString(name + ".reload-time");
 					String shotDelay = ammoConfig.getString(name + ".shot-delay");
-					String shotsBetweenReload = ammoConfig.getString(name + ".shots-between-reload");
+//					String shotsBetweenReload = ammoConfig.getString(name + ".shots-between-reload");
 					String recoil = ammoConfig.getString(name + ".recoil");
 					String weight = ammoConfig.getString(name + ".weight");
 					String knockback = ammoConfig.getString(name + ".knockback");
@@ -293,8 +293,8 @@ public class ConfigLoader {
 						a.addProperty("RECOIL", new NumberProperty(recoil));
 					if(reloadTime != null)
 						a.addProperty("RELOADTIME", new NumberProperty(reloadTime));
-					if(shotsBetweenReload != null)
-						a.addProperty("SHOTSBETWEENRELOAD", new NumberProperty(shotsBetweenReload));
+//					if(shotsBetweenReload != null)
+//						a.addProperty("SHOTSBETWEENRELOAD", new NumberProperty(shotsBetweenReload));
 					if(shotDelay != null)
 						a.addProperty("SHOTDELAY", new NumberProperty(shotDelay));
 					if(knockback != null)
@@ -388,7 +388,7 @@ public class ConfigLoader {
 					int melee = gunsConfig.getInt((String) gunnode + ".melee-damage", 0);
 					int reloadTime = gunsConfig.getInt((String) gunnode + ".reload-time", 0);
 					int shotDelay = gunsConfig.getInt((String) gunnode + ".shot-delay", 0);
-					int shotsBetweenReload = gunsConfig.getInt((String) gunnode + ".shots-between-reload", 0);
+//					int shotsBetweenReload = gunsConfig.getInt((String) gunnode + ".shots-between-reload", 0);
 					float recoil = (float) gunsConfig.getDouble((String) gunnode + ".recoil", 0);
 					float weight = (float) gunsConfig.getDouble((String) gunnode + ".weight", 0);
 					float knockback = (float) gunsConfig.getDouble((String) gunnode + ".knockback", 1.0);
@@ -448,7 +448,7 @@ public class ConfigLoader {
 					g.addProperty("MISSING_IN", new NumberProperty(missingchanceIN));
 					g.addProperty("RECOIL", new NumberProperty(recoil));
 					g.addProperty("RELOADTIME", new NumberProperty(reloadTime));
-					g.addProperty("SHOTSBETWEENRELOAD", new NumberProperty(shotsBetweenReload));
+//					g.addProperty("SHOTSBETWEENRELOAD", new NumberProperty(shotsBetweenReload));
 					g.addProperty("SHOTDELAY", new NumberProperty(shotDelay));
 					g.addProperty("KNOCKBACK", new NumberProperty(knockback));
 					g.addProperty("SHOTSOUNDVOLUME", new NumberProperty(shotsoundvolume));
