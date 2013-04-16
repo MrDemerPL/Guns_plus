@@ -6,14 +6,10 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
-import net.minecraft.server.v1_4_R1.AxisAlignedBB;
-import net.minecraft.server.v1_4_R1.EntityLiving;
-import net.minecraft.server.v1_4_R1.EntityPlayer;
-import net.minecraft.server.v1_4_R1.MobEffect;
-import net.minecraft.server.v1_4_R1.Vec3D;
+
+import net.minecraft.server.v1_5_R2.*;
 
 import org.bukkit.Bukkit;
-import org.bukkit.craftbukkit.v1_4_R1.entity.*;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -140,7 +136,7 @@ public class GunUtils {
 		int range = ((NumberProperty) ph.getProperty("RANGE")).getValue().intValue();
 		for(Entity e : new ArrayList<Entity>(Utils.getNearbyEntities(pos, range, range, range))) {
 			if(e instanceof LivingEntity) {
-				EntityLiving el = ((CraftLivingEntity) ((LivingEntity) e)).getHandle();
+				EntityLiving el = ((org.bukkit.craftbukkit.v1_5_R2.entity.CraftLivingEntity) ((LivingEntity) e)).getHandle();
 				double d = (((LivingEntity) e).getEyeLocation()).distance(pos);
 				if(isWall(d, pos)) continue;
 				AxisAlignedBB aabbB = AxisAlignedBB.a(el.boundingBox.a, el.boundingBox.b, el.boundingBox.c, el.boundingBox.d, el.boundingBox.e, el.boundingBox.f);
@@ -448,7 +444,7 @@ public class GunUtils {
 		// PotionEffect pe = new PotionEffect(PotionEffectType.SLOW, 0, 100);
 		// p.addPotionEffect(pe, true);
 		SpoutPlayer sp = (SpoutPlayer) gp.getPlayer();
-		org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer cp = (org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer) sp;
+		org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer cp = (org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer) sp;
 
 		try {
 			Field field = EntityLiving.class.getDeclaredField("effects");
@@ -457,7 +453,7 @@ public class GunUtils {
 			HashMap effects = (HashMap) field.get(cp.getHandle());
 			effects.remove(2);
 			EntityPlayer player = cp.getHandle();
-			player.playerConnection.sendPacket(new net.minecraft.server.v1_4_R1.Packet42RemoveMobEffect(player.id, new MobEffect(2, 0, 0)));
+			player.playerConnection.sendPacket(new net.minecraft.server.v1_5_R2.Packet42RemoveMobEffect(player.id, new MobEffect(2, 0, 0)));
 			cp.getHandle().getDataWatcher().watch(8, Integer.valueOf(0));
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -476,7 +472,7 @@ public class GunUtils {
 		// zoomfactor);
 		// p.addPotionEffect(pe, true);
 		SpoutPlayer sp = (SpoutPlayer) gp.getPlayer();
-		org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer cp = (org.bukkit.craftbukkit.v1_4_R1.entity.CraftPlayer) sp;
+		org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer cp = (org.bukkit.craftbukkit.v1_5_R2.entity.CraftPlayer) sp;
 
 		cp.getHandle().addEffect(new MobEffect(2, 24000, zoomfactor));
 		try {

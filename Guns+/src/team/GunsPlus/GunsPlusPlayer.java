@@ -5,15 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.UUID;
 
-import net.minecraft.server.v1_4_R1.AxisAlignedBB;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftEntity;
-import org.bukkit.craftbukkit.v1_4_R1.entity.CraftItem;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;

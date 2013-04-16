@@ -498,7 +498,8 @@ public class ConfigLoader {
 			GunsPlus.useperms = ConfigLoader.generalConfig.getBoolean("use-permissions", true);
 			GunsPlus.toolholding = ConfigLoader.generalConfig.getBoolean("tool-like-gun-holding", true);
 
-			Tripod.tripodenabled = ConfigLoader.generalConfig.getBoolean("tripod.enabled", true);
+			Util.info("The Tripod block is currently being improved and therefore disabled in this version of Guns+!");
+			Tripod.tripodenabled = false;
 			Tripod.tripodTexture = ConfigLoader.generalConfig.getString("tripod.texture", "http://dl.dropbox.com/u/44243469/GunPack/Textures/tripod.png");
 			Tripod.maxtripodcount = ConfigLoader.generalConfig.getInt("tripod.max-count-per-player", -1);
 			Tripod.forcezoom = ConfigLoader.generalConfig.getBoolean("tripod.force-zoom", true);
