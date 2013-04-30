@@ -492,6 +492,7 @@ public class ConfigLoader {
 			}
 
 			GunsPlus.warnings = ConfigLoader.generalConfig.getBoolean("show-warnings", true);
+			GunsPlus.warnings = ConfigLoader.generalConfig.getBoolean("check-for-updates", true);
 			GunsPlus.debug = ConfigLoader.generalConfig.getBoolean("show-debug", false);
 			GunsPlus.notifications = ConfigLoader.generalConfig.getBoolean("send-notifications", true);
 			GunsPlus.autoreload = ConfigLoader.generalConfig.getBoolean("auto-reload", true);

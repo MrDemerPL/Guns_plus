@@ -54,6 +54,7 @@ public class GunsPlus extends PluginPlus {
 	public static List<GunsPlusPlayer> GunsPlusPlayers = new ArrayList<GunsPlusPlayer>();
 
 	public static boolean warnings = true;
+	public static boolean checkVersion = true;
 	public static boolean debug = false;
 	public static boolean notifications = true;
 	public static boolean autoreload = true;
@@ -99,7 +100,7 @@ public class GunsPlus extends PluginPlus {
 	public void onEnable() {
 		plugin = this;
 		ConfigLoader.config();
-		new team.ApiPlus.Util.VersionChecker(this, "http://dev.bukkit.org/server-mods/guns/files.rss");
+		if(checkVersion) new team.ApiPlus.Util.VersionChecker(this, "http://dev.bukkit.org/server-mods/guns/files.rss");
 		this.registerBlockTypes(customBlockTypes);
 		this.registerItemTypes(customItemTypes);
 		hook();
